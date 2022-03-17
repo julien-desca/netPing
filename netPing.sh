@@ -16,8 +16,27 @@ then
     echo "missing network range"  
 fi
 
+# convert address to binary
+BINARY_ADDRESS=''
+for i in `seq 1 4`; do
+    b=''
+    DECIMAL=`echo $NETWORK_IP | cut -d '.' -f $i`
+    while [ "$DECIMAL" -gt 1 ]
+    do
+	b+=$(("$DECIMAL"%2))
+	DECIMAL=$(("$DECIMAL"/2))	
+    done
+    b+="$DECIMAL"
+    BINARY_ADDRESS+=`echo "$b"|rev`
+    BINARY_ADDRESS+='.'
+done
+BINARY_ADDRESS=${BINARY_ADDRESS%?}
+echo "Binary address: $BINARY_ADDRESS"
+
+
 echo "scanning network: $NETWORK_IP"
-BASE_IP=`echo "$NETWORK_IP" | cut -d '.' -f 1,2,3` 
+
+BASE_IP=`echo "$NETWORK_IP" | cut -d '.' -f 1,2,3`
 
 for host in `seq 1 254`; do
     ping $BASE_IP.$host -c 1 | grep "64 bytes" | cut -d ' ' -f 4 | tr -d ':' &

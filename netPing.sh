@@ -19,6 +19,6 @@ fi
 echo "scanning network: $NETWORK_IP"
 BASE_IP=`echo "$NETWORK_IP" | cut -d '.' -f 1,2,3` 
 
-for host in `seq 1 256`; do
+for host in `seq 1 254`; do
     ping $BASE_IP.$host -c 1 | grep "64 bytes" | cut -d ' ' -f 4 | tr -d ':' &
 done

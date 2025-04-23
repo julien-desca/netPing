@@ -2,7 +2,7 @@
 
 #simply ping all the possible host fo the network and return the ip addresses of responding hosts
 #not really usefull, made for educational purpose.
-#for now, it's just work with class C network (e.g. 192.168.1.0/24), improvements comming soon (or not).
+#improvements comming soon (or not).
 
 NETWORK_IP=`echo "$1"| cut -d '/' -f 1`
 NETWORK_RANGE=`echo $1|cut -d '/' -f 2`
